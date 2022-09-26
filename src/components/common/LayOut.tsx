@@ -67,7 +67,22 @@ const LayOut = (props: LayoutProps) => {
             color: "#fff",
           }}
         >
-          Ant Design ©2018 Created by Ant UED
+          <Typography.Title
+            level={5}
+            style={{ color: "white", textAlign: "center" }}
+          >
+            Blockchain.com
+            <br />
+            by 🚀
+            <a
+              href="https://github.com/votruongsanh"
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: "#A5C9CA" }}
+            >
+              Võ Trường Sanh
+            </a>
+          </Typography.Title>
         </Footer>
       </Layout>
     </Layout>

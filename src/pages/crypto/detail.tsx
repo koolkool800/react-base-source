@@ -97,7 +97,7 @@ const CryptoDetail = () => {
       icon: <ExclamationCircleOutlined />,
     },
   ];
-
+  // event when change timeperiod
   const handleChangeTimePeriod = async (
     value: string | number
   ): Promise<void> => {

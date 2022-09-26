@@ -10,12 +10,13 @@ import { getCoins } from "../../util/actions";
 const { Title } = Typography;
 
 const CryptoList = () => {
+  // get state, dispatch from store
   const [state, dispatch] = useStore();
   const { stats, coins }: State = state;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState("");
-
+  // used to search
   useEffect(() => {
     setLoading(true);
     const delayDebounceFn = setTimeout(async () => {
