@@ -56,7 +56,7 @@ const LayOut = (props: LayoutProps) => {
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             className="site-layout-background"
-            style={{ padding: 24, minHeight: "100vh" }}
+            style={{ padding: 24, minHeight: "100%" }}
           >
             {props.children}
           </div>
