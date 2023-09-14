@@ -1,6 +1,6 @@
 .seat-picker-container {
-  max-width: 600px;
-  margin: 0 auto;
+  /* max-width; */
+  /* margin: 0 auto; */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -23,6 +23,26 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease-in-out;
+}
+.seat-render {
+  width: 80px;
+  height: 80px;
+}
+.seat-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.seat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.seat-sanh {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .seat.selected {

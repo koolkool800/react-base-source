@@ -1,6 +1,10 @@
 import React from "react";
 import SeatPickerComponent from "../../components/seat-picker";
+import ButtonCustom from "../../components/design/button";
+import { useNavigate } from "react-router-dom";
+import { RoutesName } from "../../routes";
 const SeatMapPage = () => {
+  const navigate = useNavigate();
   const rows = [
     [
       { id: 1, number: 1, isSelected: true, tooltip: "Reserved by you" },
@@ -59,15 +63,11 @@ const SeatMapPage = () => {
 
   return (
     <div>
-      {/* <SeatPicker
-        rows={rows}
-        maxReservableSeats={6}
-        number
-        visible
-        selectedByDefault
-        tooltipProps={{ multiline: true }}
-      /> */}
-      <SeatPickerComponent />
+      {/* <SeatPickerComponent /> */}
+      <ButtonCustom
+        content="Create event"
+        onClick={() => navigate(RoutesName.EVENT_CREATE)}
+      />
     </div>
   );
 };
