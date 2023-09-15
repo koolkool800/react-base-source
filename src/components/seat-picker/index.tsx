@@ -31,7 +31,6 @@ function SeatPickerComponent() {
 
   return (
     <div className="seat-picker-container">
-      <h2>Seat Picker</h2>
       {/* <div className="seat-picker">
         {classes.map((classType) =>
           sections.map((section) => (

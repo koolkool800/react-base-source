@@ -3,6 +3,7 @@ import SeatPickerComponent from "../../components/seat-picker";
 import ButtonCustom from "../../components/design/button";
 import { useNavigate } from "react-router-dom";
 import { RoutesName } from "../../routes";
+import { useQuery } from "@tanstack/react-query";
 const SeatMapPage = () => {
   const navigate = useNavigate();
   const rows = [
@@ -64,6 +65,7 @@ const SeatMapPage = () => {
   return (
     <div>
       {/* <SeatPickerComponent /> */}
+      <Example />
       <ButtonCustom
         content="Create event"
         onClick={() => navigate(RoutesName.EVENT_CREATE)}
@@ -81,3 +83,20 @@ export default SeatMapPage;
 // https://codesandbox.io/s/seat-bookig-component-pt8q2?file=/src/SeatAllocationComponent.jsx
 // https://codesandbox.io/s/tongariro-cinema-website-j3mgnw?file=/src/pages/movie/Movie.jsx
 // https://github.com/topics/react-typescript-boilerplate
+
+function Example() {
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["repoData"],
+    queryFn: () =>
+      fetch("https://api.github.com/repos/TanStack/query").then((res) =>
+        res.json()
+      ),
+  });
+  console.log(error);
+
+  return (
+    <div>
+      <h1>hi</h1>
+    </div>
+  );
+}

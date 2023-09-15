@@ -106,7 +106,7 @@ function SeatMapCreator() {
   };
   return (
     <div className="seat-map-creator-container">
-      <h2>Seat Map Creator</h2>
+      <h2>Stage Map Creator</h2>
       <div className="seat-map-controls">
         <div>
           <label>Class:</label>
