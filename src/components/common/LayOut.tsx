@@ -112,14 +112,14 @@ const LayOut = (props: LayoutProps) => {
           className="site-layout-sub-header-background"
           style={{ padding: 24, display: "flex", justifyContent: "flex-end" }}
         >
-          <Dropdown menu={{ items }}>
+          {/* <Dropdown menu={{ items }}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
                 <AvatarUser />
                 <DownOutlined />
               </Space>
             </a>
-          </Dropdown>
+          </Dropdown> */}
         </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
