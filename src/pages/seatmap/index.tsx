@@ -1,70 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SeatPickerComponent from "../../components/seat-picker";
 import ButtonCustom from "../../components/design/button";
 import { useNavigate } from "react-router-dom";
 import { RoutesName } from "../../routes";
 import { useQuery } from "@tanstack/react-query";
+import { fetchPostsKey, fetchSinglePostKey } from "../../util/queryKeys";
+import { fetchPosts } from "../../services/fetchPosts";
+import { fetchSinglePost } from "../../services/fetchSinglePost";
+import LoadingComponent from "../../components/common/loading";
 const SeatMapPage = () => {
   const navigate = useNavigate();
-  const rows = [
-    [
-      { id: 1, number: 1, isSelected: true, tooltip: "Reserved by you" },
-      { id: 2, number: 2, tooltip: "Cost: 15$" },
-      {
-        id: 3,
-        number: "3",
-        isReserved: true,
-        orientation: "east",
-        tooltip: "Reserved by Rogger",
-      },
-      null,
-    ],
-    [
-      {
-        id: 7,
-        number: 1,
-        isReserved: true,
-        tooltip: "Reserved by Matthias Nadler",
-      },
-      { id: 8, number: 2, isReserved: true },
-      { id: 9, number: "3", isReserved: true, orientation: "east" },
-      null,
-      { id: 10, number: "4", orientation: "west" },
-      { id: 11, number: 5 },
-      { id: 12, number: 6 },
-    ],
-    [
-      { id: 13, number: 1 },
-      { id: 14, number: 2 },
-      { id: 15, number: 3, isReserved: true, orientation: "east" },
-      null,
-      { id: 16, number: "4", orientation: "west" },
-      { id: 17, number: 5 },
-      { id: 18, number: 6 },
-    ],
-    [
-      { id: 19, number: 1, tooltip: "Cost: 25$" },
-      { id: 20, number: 2 },
-      { id: 21, number: 3, orientation: "east" },
-      null,
-      { id: 22, number: "4", orientation: "west" },
-      { id: 23, number: 5 },
-      { id: 24, number: 6 },
-    ],
-    [
-      { id: 25, number: 1, isReserved: true },
-      { id: 26, number: 2, orientation: "east" },
-      { id: 27, number: "3", isReserved: true },
-      null,
-      { id: 28, number: "4", orientation: "west" },
-      { id: 29, number: 5, tooltip: "Cost: 11$" },
-      { id: 30, number: 6, isReserved: true },
-    ],
-  ];
 
   return (
     <div>
       {/* <SeatPickerComponent /> */}
+      <LoadingComponent />
       <Example />
       <ButtonCustom
         content="Create event"
@@ -73,7 +23,6 @@ const SeatMapPage = () => {
     </div>
   );
 };
-
 export default SeatMapPage;
 
 // https://booking.seatmap.pro/
@@ -85,18 +34,33 @@ export default SeatMapPage;
 // https://github.com/topics/react-typescript-boilerplate
 
 function Example() {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["repoData"],
-    queryFn: () =>
-      fetch("https://api.github.com/repos/TanStack/query").then((res) =>
-        res.json()
-      ),
-  });
-  console.log(error);
+  const { isLoading, isError, isSuccess, refetch, remove, data, error } =
+    useQuery([fetchPostsKey], fetchPosts);
+
+  const { data: dataSinglePost } = useQuery(
+    [fetchSinglePostKey, 1],
+    fetchSinglePost
+  );
 
   return (
     <div>
-      <h1>hi</h1>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : isError ? (
+        <div>An error while fetching posts</div>
+      ) : (
+        <>
+          <h1>signle post</h1>
+          <div>{dataSinglePost?.title}</div>
+          <h1>Lots of post</h1>
+          {data?.map((post: any) => (
+            <div key={post?.id}>
+              <div>{post?.title}</div>
+              <div>{post?.body}</div>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 }

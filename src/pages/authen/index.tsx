@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
     try {
       const response = await axios.post<
         ApiResponse<{ accessToken: string; user: User }>
-      >("http://localhost:3000/api/v1/auth/sign-in", {
+      >(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/sign-in`, {
         email: values.email,
         password: values.password,
       });

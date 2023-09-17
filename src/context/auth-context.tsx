@@ -37,9 +37,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
 // Custom hook to access the context
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  const context = useContext(AuthContext) as AuthContextType;
   return context;
 };

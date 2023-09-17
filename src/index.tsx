@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "antd/dist/antd.min.css";
 import "./index.css";
@@ -7,23 +7,57 @@ import reportWebVitals from "./reportWebVitals";
 import { StoreProvider } from "./store";
 import {
   QueryClient,
+  QueryClientConfig,
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
 import { AuthProvider } from "./context/auth-context";
 
-const queryClient = new QueryClient();
+import axios from "axios";
+import { queryClient } from "./configs/queryClient";
+import { ErrorBoundary } from "./pages/error";
+import ErrorComponent from "./components/common/error";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+axios.defaults.baseURL = "https://dev-api.resellticket.co.kr/api/v1";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
+axios.interceptors.request.use(
+  (request) => {
+    console.log(request);
+    // Edit request config
+    return request;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  (response) => {
+    console.log(response);
+    // Edit response config
+    return response;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <ErrorBoundary>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </ErrorBoundary>
       </StoreProvider>
     </QueryClientProvider>
   </React.StrictMode>
