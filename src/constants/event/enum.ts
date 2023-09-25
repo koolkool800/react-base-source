@@ -6,6 +6,11 @@ export enum EventType {
   OTHER = "OTHER",
 }
 
+export enum EventStatus {
+  ACTIVE = "ACTIVE",
+  ENDED = "ENDED",
+}
+
 export const eventTypeContants = {
   CONCERT: EventType.CONCERT,
   SPORT: EventType.SPORT,

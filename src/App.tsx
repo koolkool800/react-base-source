@@ -27,6 +27,7 @@ const App: React.FC = () => {
 
     bootstrap();
   }, []);
+
   return (
     <BrowserRouter>
       {user !== null ? (

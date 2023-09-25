@@ -36,6 +36,7 @@ const CreateEventPage = () => {
 
 export default CreateEventPage;
 
+interface IEventCreateForm {}
 const App: React.FC = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState("horizontal");

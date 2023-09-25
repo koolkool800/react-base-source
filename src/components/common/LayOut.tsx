@@ -12,6 +12,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesName } from "../../routes";
 import AvatarUser from "./avatar-user";
+import ButtonCustom from "../design/button";
+import { useAuth } from "../../context/auth-context";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -40,53 +42,7 @@ export interface LayoutProps {
 }
 const LayOut = (props: LayoutProps) => {
   const navigate = useNavigate();
-
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item (disabled)
-        </a>
-      ),
-      icon: <SmileOutlined />,
-      disabled: true,
-    },
-    {
-      key: "3",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item (disabled)
-        </a>
-      ),
-      disabled: true,
-    },
-    {
-      key: "4",
-      danger: true,
-      label: "a danger item",
-    },
-  ];
+  const { logout } = useAuth();
 
   return (
     <Layout>
@@ -98,13 +54,27 @@ const LayOut = (props: LayoutProps) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["0"]}
+          defaultSelectedKeys={[
+            String(
+              siderBar.findIndex(
+                (bar) => bar.route === window.location.pathname
+              ) + 1
+            ),
+          ]}
           items={siderBar.map((bar, index) => ({
             key: String(index + 1),
             icon: bar.icon,
             label: bar.label,
             onClick: () => navigate(bar.route),
           }))}
+        />
+
+        <ButtonCustom
+          content="Logout"
+          onClick={() => {
+            logout();
+            navigate("/authen");
+          }}
         />
       </Sider>
       <Layout>

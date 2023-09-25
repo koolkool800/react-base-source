@@ -8,7 +8,6 @@ interface SeatMap {
   sections: {
     name: string;
     rows: number;
-    columns: number;
   }[];
 }
 
@@ -17,7 +16,6 @@ function SeatMapCreator() {
   const [currentClass, setCurrentClass] = useState<string>("Class 1");
   const [currentSection, setCurrentSection] = useState<string>("A");
   const [currentRows, setCurrentRows] = useState<number>(2);
-  const [currentColumns, setCurrentColumns] = useState<number>(2);
   const [orderSeatMap, setOrderSeatMap] = useState<number>(1);
 
   // Function to add a new class
@@ -25,9 +23,7 @@ function SeatMapCreator() {
     const newClass = {
       name: currentClass,
       order: orderSeatMap,
-      sections: [
-        { name: currentSection, rows: currentRows, columns: currentColumns },
-      ],
+      sections: [{ name: currentSection, rows: currentRows }],
     };
     setSeatMap([...seatMap, newClass]);
     setOrderSeatMap(orderSeatMap + 1);
@@ -40,7 +36,6 @@ function SeatMapCreator() {
         item.sections.push({
           name: currentSection,
           rows: currentRows,
-          columns: currentColumns,
         });
       }
       return item;
@@ -67,7 +62,7 @@ function SeatMapCreator() {
     setSeatMap(updatedMap);
   };
 
-  // Function to render the seat map based on sections per row
+  // Function to render the seat map based on rows
   const renderSeatMap = () => {
     const seatRows: JSX.Element[] = [];
 
@@ -76,25 +71,19 @@ function SeatMapCreator() {
 
       if (sections.length > 0) {
         sections.forEach((sectionItem) => {
-          const { name, rows, columns } = sectionItem;
+          const { name, rows } = sectionItem;
           for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
-            const rowSeats: JSX.Element[] = [];
-            for (let colIndex = 0; colIndex < columns; colIndex++) {
-              rowSeats.push(
-                <div
-                  key={`seat-${seat.name}-${name}-${rowIndex}-${colIndex}`}
-                  className="seat seat-render"
-                >
-                  {`${seat.name}-${name}-${rowIndex}-${colIndex}`}
-                </div>
-              );
-            }
             seatRows.push(
               <div
                 key={`row-${seat.name}-${name}-${rowIndex}`}
                 className="seat-sanh"
               >
-                {rowSeats}
+                <div
+                  key={`seat-${seat.name}-${name}-${rowIndex}`}
+                  className="seat seat-render"
+                >
+                  {`${seat.name}-${name}-${rowIndex}`}
+                </div>
               </div>
             );
           }
@@ -132,14 +121,7 @@ function SeatMapCreator() {
             onChange={(e) => setCurrentRows(parseInt(e.target.value, 10))}
           />
         </div>
-        <div>
-          <label>Columns:</label>
-          <input
-            type="number"
-            value={currentColumns}
-            onChange={(e) => setCurrentColumns(parseInt(e.target.value, 10))}
-          />
-        </div>
+
         <div>
           <label>Order:</label>
           <input
@@ -174,7 +156,7 @@ function SeatMapCreator() {
                   <div className="seat-grid">
                     {Array.from({ length: sectionItem.rows }, (_, rowIndex) => (
                       <div key={`row-${rowIndex}`} className="seat-row">
-                        {Array.from(
+                        {/* {Array.from(
                           { length: sectionItem.columns },
                           (_, colIndex) => (
                             <div
@@ -182,7 +164,7 @@ function SeatMapCreator() {
                               className="seat"
                             ></div>
                           )
-                        )}
+                        )} */}
                       </div>
                     ))}
                   </div>

@@ -3,11 +3,11 @@ import { Form, Input, Button, Layout, notification } from "antd";
 import "./index.css";
 import { useAuth } from "../../context/auth-context";
 import axios from "axios";
-import { ApiResponse } from "../../types/response-axios";
 import { User } from "../../types/user";
 import { NotificationPlacement } from "antd/lib/notification";
 import Toast from "../../components/design/toast";
 import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { ApiResponse, axiosInstance } from "../../configs/axios";
 
 const { Content } = Layout;
 
@@ -17,9 +17,9 @@ const LoginPage: React.FC = () => {
 
   const onFinish = async (values: any) => {
     try {
-      const response = await axios.post<
+      const response = await axiosInstance.post<
         ApiResponse<{ accessToken: string; user: User }>
-      >(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/sign-in`, {
+      >(`/auth/sign-in`, {
         email: values.email,
         password: values.password,
       });

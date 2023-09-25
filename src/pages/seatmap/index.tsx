@@ -4,23 +4,25 @@ import ButtonCustom from "../../components/design/button";
 import { useNavigate } from "react-router-dom";
 import { RoutesName } from "../../routes";
 import { useQuery } from "@tanstack/react-query";
-import { fetchPostsKey, fetchSinglePostKey } from "../../util/queryKeys";
+import { fetchEventsKey, fetchSinglePostKey } from "../../util/queryKeys";
 import { fetchPosts } from "../../services/fetchPosts";
 import { fetchSinglePost } from "../../services/fetchSinglePost";
 import LoadingComponent from "../../components/common/loading";
+import ErrorComponent from "../../components/common/error";
+import ListEvents from "../../components/pages/event/listEvents";
+import { Space } from "antd";
 const SeatMapPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      {/* <SeatPickerComponent /> */}
-      <LoadingComponent />
-      <Example />
+    <Space direction="vertical" style={{ maxWidth: "100%", display: "flex" }}>
       <ButtonCustom
         content="Create event"
         onClick={() => navigate(RoutesName.EVENT_CREATE)}
       />
-    </div>
+      <Example />
+      <LoadingComponent />
+    </Space>
   );
 };
 export default SeatMapPage;
@@ -34,8 +36,15 @@ export default SeatMapPage;
 // https://github.com/topics/react-typescript-boilerplate
 
 function Example() {
-  const { isLoading, isError, isSuccess, refetch, remove, data, error } =
-    useQuery([fetchPostsKey], fetchPosts);
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    refetch,
+    remove,
+    data: listEventResponseAxios,
+    error,
+  } = useQuery([fetchEventsKey], fetchPosts);
 
   const { data: dataSinglePost } = useQuery(
     [fetchSinglePostKey, 1],
@@ -45,20 +54,18 @@ function Example() {
   return (
     <div>
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingComponent />
       ) : isError ? (
-        <div>An error while fetching posts</div>
+        <ErrorComponent message="There is some error while fetching events" />
       ) : (
         <>
-          <h1>signle post</h1>
-          <div>{dataSinglePost?.title}</div>
           <h1>Lots of post</h1>
-          {data?.map((post: any) => (
-            <div key={post?.id}>
-              <div>{post?.title}</div>
-              <div>{post?.body}</div>
+          {/* {listEventResponseAxios.data?.data.map((event) => (
+            <div key={event?.eventId}>
+              <p>{event.eventName}</p>
             </div>
-          ))}
+          ))} */}
+          <ListEvents />
         </>
       )}
     </div>
