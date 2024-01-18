@@ -23,6 +23,12 @@ const siderBar = [
     route: RoutesName.EVENT,
   },
   {
+    key: "0",
+    icon: <HomeOutlined />,
+    label: "Generate Cli",
+    route: RoutesName.GENERATE_CLI,
+  },
+  {
     key: "2",
     icon: <MoneyCollectOutlined />,
     label: "Prices",

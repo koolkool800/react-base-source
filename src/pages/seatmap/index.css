@@ -1,0 +1,42 @@
+/* SeatMap.css */
+.container {
+  position: relative;
+}
+
+.busShape {
+  position: absolute;
+  z-index: 1;
+  width: fit-content;
+  height: auto;
+  padding: 24px 12px 12px;
+  border-radius: 25px 25px 5px 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.seatMap {
+  position: relative;
+  z-index: 2;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.seat {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  user-select: none;
+}
+
+.seat.selected {
+  background-color: #3498db;
+  color: #fff;
+}

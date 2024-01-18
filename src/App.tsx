@@ -11,6 +11,7 @@ import Authen from "./pages/authen";
 import { useAuth } from "./context/auth-context";
 import axios from "axios";
 import { axiosInstance } from "./configs/axios";
+import CodeGenerator from "./pages/generate-cli";
 
 const App: React.FC = () => {
   const { user } = useAuth();
@@ -34,6 +35,8 @@ const App: React.FC = () => {
           <Routes>
             <Route path={"/"} element={<Navigate to={RoutesName.EVENT} />} />
             <Route path={RoutesName.EVENT} element={<SeatMapPage />} />
+            <Route path={RoutesName.GENERATE_CLI} element={<CodeGenerator />} />
+
             <Route
               path={RoutesName.EVENT_CREATE}
               element={<CreateEventPage />}
